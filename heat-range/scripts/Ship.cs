@@ -1,21 +1,19 @@
 using Godot;
 using System;
 
-public class Ship2 : Node2D
+namespace HeatRange
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+	public sealed class Ship : RigidBody2D
+	{
+		public override void _IntegrateForces(Physics2DDirectBodyState state)
+		{
+			var dir = Input.GetAxis("left", "right");
+			var res = state.AngularVelocity + dir * Def.Player.RotationSpeed / state.Step;
+			res = Math.Max(Math.Min(res, Def.Player.MaxRotationSpeed), -Def.Player.MaxRotationSpeed);
+			state.AngularVelocity = res;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        
-    }
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+			state.LinearVelocity += new Vector2(Input.GetActionStrength("move") * Def.Player.MoveSpeed / state.Step, 0f).Rotated(Rotation);
+			state.LinearVelocity = state.LinearVelocity.Clamped(Def.Player.MaxMoveSpeed);
+		}
+	}
 }
