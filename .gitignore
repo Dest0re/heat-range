@@ -1,3 +1,4 @@
 heat-range/.mono/
 *.csproj
 *.sln
+**/.vs/
