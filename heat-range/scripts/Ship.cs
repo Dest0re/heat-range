@@ -31,7 +31,7 @@ namespace HeatRange
 		}
 
 		// REMOVE!
-		/*public override void _Ready()
+		public override void _Ready()
 		{
 			Input.SetMouseMode(Input.MouseMode.Hidden);
 
@@ -48,7 +48,7 @@ namespace HeatRange
 			t.AngularVelocity = 0.1f;
 			AsteroidSystem.Asteroids.Add(t);
 			GetTree().Root.CallDeferred("add_child", t);
-		}*/
+		}
 
 		public override void _Draw()
 		{

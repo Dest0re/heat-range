@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/Ship.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Reactor.tscn" type="PackedScene" id=2]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -23,6 +24,14 @@ glow_high_quality = true
 
 [node name="Ship" parent="." instance=ExtResource( 1 )]
 position = Vector2( 318, 276 )
+z_index = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
+
+[node name="Reactor" parent="." instance=ExtResource( 2 )]
+position = Vector2( 512, 300 )
+Fullness = 0.851
+StartInnerRingSize = 0.0
+StartOuterRingSize = 0.243
+CriticalMass = 0.837
