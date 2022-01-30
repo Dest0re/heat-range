@@ -1,0 +1,18 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float speed;
+
+void fragment() {
+	vec2 cr = vec2(UV.x + TIME*speed, UV.y);
+	vec2 cg = vec2(UV.x - TIME*speed, UV.y);
+	vec2 cb = vec2(UV.x, UV.y - TIME*speed);
+	
+	float r = texture(TEXTURE, cr).r;
+	float g = texture(TEXTURE, cg).g;
+	float b = texture(TEXTURE, cb).b;
+	
+	COLOR.rgb = vec3(r, g, b);
+}"

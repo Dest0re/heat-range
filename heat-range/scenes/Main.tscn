@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scenes/Ship.tscn" type="PackedScene" id=1]
+[ext_resource path="res://shaders/noise_shader.tres" type="Shader" id=1]
 [ext_resource path="res://scenes/Reactor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/sprites/noise.jpg" type="Texture" id=3]
+[ext_resource path="res://shaders/reactor_shader.tres" type="Shader" id=4]
+[ext_resource path="res://resources/sprites/reactor_noise2.jpg" type="Texture" id=5]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -20,18 +23,41 @@ glow_hdr_scale = 0.79
 glow_bicubic_upscale = true
 glow_high_quality = true
 
-[node name="Root" type="Node2D"]
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/speed = 0.015
 
-[node name="Ship" parent="." instance=ExtResource( 1 )]
-position = Vector2( 318, 276 )
-z_index = 1
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 4 )
+shader_param/speed = Vector2( 0.02, 0.08 )
+shader_param/heat = 0.06
+shader_param/brightness = 5e+06
+shader_param/brightness_alpha = 11000.4
+
+[node name="Root" type="Node2D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
 [node name="Reactor" parent="." instance=ExtResource( 2 )]
-position = Vector2( 512, 300 )
-Fullness = 0.851
+position = Vector2( 555, 297 )
+Fullness = 0.383
 StartInnerRingSize = 0.0
 StartOuterRingSize = 0.243
 CriticalMass = 0.837
+
+[node name="Noise" type="Sprite" parent="."]
+modulate = Color( 0.0470588, 0.0784314, 0.117647, 1 )
+material = SubResource( 2 )
+position = Vector2( 521, 308 )
+scale = Vector2( 2, 2 )
+z_index = -2
+texture = ExtResource( 3 )
+
+[node name="ReactorNoise" type="Sprite" parent="."]
+modulate = Color( 1, 0.505882, 0.333333, 1 )
+material = SubResource( 3 )
+position = Vector2( 553, 299 )
+scale = Vector2( 3, 3 )
+z_index = -1
+texture = ExtResource( 5 )

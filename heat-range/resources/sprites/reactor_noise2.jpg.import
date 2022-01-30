@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/reactor_noise.jpg-24ee9ff991fccb0a981f5fa778a8d371.stex"
+path="res://.import/reactor_noise2.jpg-18feabbc5c33032b9ccf393788c08bda.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/reactor_noise.jpg"
-dest_files=[ "res://.import/reactor_noise.jpg-24ee9ff991fccb0a981f5fa778a8d371.stex" ]
+source_file="res://resources/sprites/reactor_noise2.jpg"
+dest_files=[ "res://.import/reactor_noise2.jpg-18feabbc5c33032b9ccf393788c08bda.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=2
+flags/repeat=1
 flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
