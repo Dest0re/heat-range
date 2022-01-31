@@ -92,8 +92,8 @@ public class Reactor : StaticBody2D
 
 	public override void _PhysicsProcess(float delta)
 	{
-		_RealInnerRingSize += Mathf.Pow( _InnerRingSize - _RealInnerRingSize, 2.0f) * Math.Sign(_InnerRingSize - _RealInnerRingSize);
-		_RealOuterRingSize += Mathf.Pow(_OuterRingSize - _RealOuterRingSize, 2.0f) * Math.Sign(_OuterRingSize - _RealOuterRingSize);
+		_RealInnerRingSize = Mathf.Lerp(_InnerRingSize, _RealInnerRingSize, .95f);
+		_RealOuterRingSize = Mathf.Lerp(_OuterRingSize, _RealOuterRingSize, .95f);
 
 		_InnerRingShader.SetShaderParam("radius", _minimalScreenBorder * _RealInnerRingSize / _maximalScreenBorder);
 		_OuterRingShader.SetShaderParam("radius", _minimalScreenBorder * _RealOuterRingSize / 2 / _maximalScreenBorder);

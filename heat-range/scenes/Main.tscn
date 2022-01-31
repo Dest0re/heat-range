@@ -87,7 +87,7 @@ environment = SubResource( 1 )
 
 [node name="Reactor" parent="." instance=ExtResource( 2 )]
 position = Vector2( 515, 314 )
-Fullness = 0.383
+Fullness = 0.88
 StartInnerRingSize = 0.0
 StartOuterRingSize = 0.243
 CriticalMass = 0.837
