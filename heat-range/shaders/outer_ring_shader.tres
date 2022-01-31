@@ -1,0 +1,21 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform sampler2D noise_img;
+uniform vec4 circle_color : hint_color;
+uniform float radius;
+uniform float smoothness;
+uniform float brightness;
+uniform float outer_smoothness;
+uniform float outer_brightness;
+uniform float speed;
+uniform vec2 center;
+
+void fragment() {
+	float d = radius - distance(UV, center);
+	COLOR.a = max(0, .5f - pow(abs(d), smoothness)) * brightness * texture(noise_img, UV + TIME*speed).r;
+	COLOR.a += floor(1f - d) / outer_smoothness * outer_brightness;
+	COLOR.rgb = circle_color.rgb;
+}"
