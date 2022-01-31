@@ -25,17 +25,6 @@ glow_hdr_scale = 0.79
 glow_bicubic_upscale = true
 glow_high_quality = true
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 1 )
-shader_param/speed = 0.015
-
-[sub_resource type="ShaderMaterial" id=3]
-shader = ExtResource( 4 )
-shader_param/speed = Vector2( 0.02, 0.08 )
-shader_param/heat = 0.06
-shader_param/brightness = 5e+06
-shader_param/brightness_alpha = 11000.4
-
 [sub_resource type="OpenSimplexNoise" id=11]
 
 [sub_resource type="NoiseTexture" id=12]
@@ -46,10 +35,10 @@ noise = SubResource( 11 )
 shader = ExtResource( 7 )
 shader_param/circle_color = Color( 1, 0.34902, 0.317647, 1 )
 shader_param/radius = 0.036
-shader_param/smoothness = 0.17
-shader_param/brightness = 3.91
-shader_param/inner_smoothness = 0.003
-shader_param/inner_brightness = null
+shader_param/smoothness = 0.14
+shader_param/brightness = 6.477
+shader_param/inner_smoothness = 0.004
+shader_param/inner_brightness = 0.113
 shader_param/speed = 0.072
 shader_param/center = Vector2( 0.5, 0.5 )
 shader_param/noise_img = SubResource( 12 )
@@ -68,7 +57,7 @@ noise = SubResource( 6 )
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 6 )
 shader_param/circle_color = Color( 0.458824, 0.529412, 1, 1 )
-shader_param/radius = 0.088
+shader_param/radius = 0.111
 shader_param/smoothness = 0.133
 shader_param/brightness = 6.746
 shader_param/outer_smoothness = 0.829
@@ -79,6 +68,17 @@ shader_param/noise_img = SubResource( 7 )
 
 [sub_resource type="ImageTexture" id=5]
 size = Vector2( 2048, 2048 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/speed = 0.015
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 4 )
+shader_param/speed = Vector2( 0.02, 0.08 )
+shader_param/heat = 0.06
+shader_param/brightness = 5e+06
+shader_param/brightness_alpha = 11000.4
 
 [node name="Root" type="Node2D"]
 
@@ -91,6 +91,16 @@ Fullness = 0.383
 StartInnerRingSize = 0.0
 StartOuterRingSize = 0.243
 CriticalMass = 0.837
+_InnerRingPath = NodePath("InnerRing")
+_OuterRingPath = NodePath("OuterRing")
+
+[node name="InnerRing" type="Sprite" parent="Reactor"]
+material = SubResource( 9 )
+texture = SubResource( 10 )
+
+[node name="OuterRing" type="Sprite" parent="Reactor"]
+material = SubResource( 4 )
+texture = SubResource( 5 )
 
 [node name="Noise" type="Sprite" parent="."]
 modulate = Color( 0.0470588, 0.0784314, 0.117647, 1 )
@@ -107,13 +117,3 @@ position = Vector2( 513, 315 )
 scale = Vector2( 3, 3 )
 z_index = -1
 texture = ExtResource( 5 )
-
-[node name="InnerRing" type="Sprite" parent="."]
-material = SubResource( 9 )
-position = Vector2( 515, 319 )
-texture = SubResource( 10 )
-
-[node name="OuterRing" type="Sprite" parent="."]
-material = SubResource( 4 )
-position = Vector2( 515, 317 )
-texture = SubResource( 5 )

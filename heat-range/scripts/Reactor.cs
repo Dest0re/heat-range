@@ -7,6 +7,10 @@ public class Reactor : StaticBody2D
 		(int)ProjectSettings.GetSetting("display/window/size/width"), 
 		(int)ProjectSettings.GetSetting("display/window/size/height"));
 
+	private int _maximalScreenBorder = Math.Max(
+		(int)ProjectSettings.GetSetting("display/window/size/width"),
+		(int)ProjectSettings.GetSetting("display/window/size/height"));
+
 	[Export(PropertyHint.Range, "0,1")]
 	public float Fullness
 	{
@@ -30,7 +34,7 @@ public class Reactor : StaticBody2D
 			}
 		}
 	}
-	
+
 	[Export(PropertyHint.Range, "0,0.2")]
 	public float StartInnerRingSize { get; set; }
 	
@@ -40,13 +44,21 @@ public class Reactor : StaticBody2D
 	[Export(PropertyHint.Range, "0,1")]
 	public float CriticalMass { get; set; }
 
+
+	[Export] 
+	private NodePath _InnerRingPath;
+
+	[Export] 
+	private NodePath _OuterRingPath;
+
+	private ShaderMaterial _InnerRingShader;
+	private ShaderMaterial _OuterRingShader;
+
 	private float _InnerRingSize;
 	private float _OuterRingSize;
 	private float _Fulliness;
 	
-	[Export()]
 	private float _RealInnerRingSize;
-	[Export()]
 	private float _RealOuterRingSize;
 
 	public float InnerRingSize
@@ -73,6 +85,9 @@ public class Reactor : StaticBody2D
 	{
 		_RealInnerRingSize = StartInnerRingSize;
 		_RealOuterRingSize = StartOuterRingSize;
+
+		_InnerRingShader = GetNode<CanvasItem>(_InnerRingPath).Material as ShaderMaterial;
+		_OuterRingShader = GetNode<CanvasItem>(_OuterRingPath).Material as ShaderMaterial;
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -80,16 +95,8 @@ public class Reactor : StaticBody2D
 		_RealInnerRingSize += Mathf.Pow( _InnerRingSize - _RealInnerRingSize, 2.0f) * Math.Sign(_InnerRingSize - _RealInnerRingSize);
 		_RealOuterRingSize += Mathf.Pow(_OuterRingSize - _RealOuterRingSize, 2.0f) * Math.Sign(_OuterRingSize - _RealOuterRingSize);
 
-		Update();
-	}
-
-	public override void _Draw()
-	{
-		var radius = _minimalScreenBorder * _RealOuterRingSize / 2;
-		
-		DrawCircle(new Vector2(0, 0), radius, Colors.Blue);
-		DrawCircle(new Vector2(0, 0), radius-2, Color.Color8(0, 0, 0, 255));
-		DrawCircle(new Vector2(0, 0), _minimalScreenBorder * _RealInnerRingSize, Colors.Red);
+		_InnerRingShader.SetShaderParam("radius", _minimalScreenBorder * _RealInnerRingSize / _maximalScreenBorder);
+		_OuterRingShader.SetShaderParam("radius", _minimalScreenBorder * _RealOuterRingSize / 2 / _maximalScreenBorder);
 	}
 
 	//  // Called every frame. 'delta' is the elapsed time since the previous frame.
